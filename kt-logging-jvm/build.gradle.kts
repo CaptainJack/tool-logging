@@ -3,6 +3,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
 	kotlin("platform.jvm")
 	id("ru.capjack.kotlin-sources-jar")
+	id("ru.capjack.capjack-publish")
 }
 
 dependencies {
