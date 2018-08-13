@@ -4,7 +4,6 @@ class ConsoleOutput : Output {
 	private val loggerAbbreviator = ClassNameAbbreviator(20)
 	
 	override fun writeRecord(record: Record) {
-		
 		when (record.level) {
 			Level.ERROR -> console::error
 			Level.WARN  -> console::warn
@@ -16,6 +15,5 @@ class ConsoleOutput : Output {
 			"${record.level.name.padEnd(5)} ${loggerAbbreviator.abbreviate(record.logger)}: ${record.message}",
 			record.throwable
 		)
-		
 	}
 }

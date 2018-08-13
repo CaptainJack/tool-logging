@@ -24,6 +24,4 @@ actual object Logging {
 		else
 			DefaultLogger(logger)
 	}
-	
-	
 }
