@@ -1,3 +1,6 @@
+import ru.capjack.gradle.capjackPublish.CapjackPublishExtension
+import ru.capjack.gradle.capjackPublish.CapjackPublishPlugin
+
 plugins {
 	kotlin("jvm") version "1.2.60" apply false
 	id("nebula.release") version "6.3.5"
@@ -10,5 +13,11 @@ subprojects {
 	
 	repositories {
 		jcenter()
+	}
+	
+	plugins.withType<CapjackPublishPlugin> {
+		configure<CapjackPublishExtension> {
+			githubRepository = "kt-logging"
+		}
 	}
 }
