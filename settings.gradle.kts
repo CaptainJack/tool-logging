@@ -1,7 +1,7 @@
 include(
-	"kt-logging-common",
-	"kt-logging-js",
-	"kt-logging-jvm"
+	"lib-kt-logging-common",
+	"lib-kt-logging-js",
+	"lib-kt-logging-jvm"
 )
 
 enableFeaturePreview("STABLE_PUBLISHING")

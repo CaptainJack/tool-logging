@@ -7,7 +7,7 @@ plugins {
 }
 
 dependencies {
-	expectedBy(project(":kt-logging-common"))
+	expectedBy(project(":lib-kt-logging-common"))
 	
 	implementation(kotlin("stdlib-jdk8"))
 	implementation("org.slf4j:slf4j-api:1.7.+")

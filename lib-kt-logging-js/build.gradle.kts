@@ -5,7 +5,7 @@ plugins {
 }
 
 dependencies {
-	expectedBy(project(":kt-logging-common"))
+	expectedBy(project(":lib-kt-logging-common"))
 	
 	implementation(kotlin("stdlib-js"))
 }
