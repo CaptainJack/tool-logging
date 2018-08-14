@@ -1,7 +1,8 @@
 include(
-	"lib-kt-logging-common",
-	"lib-kt-logging-js",
-	"lib-kt-logging-jvm"
+	"kt-logging-common",
+	"kt-logging-js",
+	"kt-logging-js-gradle",
+	"kt-logging-jvm"
 )
 
 enableFeaturePreview("STABLE_PUBLISHING")

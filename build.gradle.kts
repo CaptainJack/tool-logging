@@ -3,13 +3,13 @@ import ru.capjack.gradle.capjackPublish.CapjackPublishPlugin
 
 plugins {
 	kotlin("jvm") version "1.2.60" apply false
+	id("io.freefair.sources-jar") version "2.5.11" apply false
+	id("ru.capjack.capjack-publish") version "0.7.0" apply false
 	id("nebula.release") version "6.3.5"
-	id("ru.capjack.kotlin-sources-jar") version "0.3.0" apply false
-	id("ru.capjack.capjack-publish") version "0.6.0" apply false
 }
 
 subprojects {
-	group = "ru.capjack.lib"
+	group = "ru.capjack"
 	
 	repositories {
 		jcenter()
@@ -17,7 +17,7 @@ subprojects {
 	
 	plugins.withType<CapjackPublishPlugin> {
 		configure<CapjackPublishExtension> {
-			githubRepository = "lib-kt-logging"
+			githubRepository = "kt-logging"
 		}
 	}
 }
