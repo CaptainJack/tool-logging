@@ -36,7 +36,7 @@ pluginBundle {
 	plugins["KtLoggingJs"].displayName = "KtLoggingJs plugin"
 }
 
-rootProject.tasks.getByName("postRelease").dependsOn("publishPlugins")
+rootProject.tasks["postRelease"].dependsOn(tasks["publishPlugins"])
 
 tasks.withType<ProcessResources> {
 	inputs.property("version", version.toString())
