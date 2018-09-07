@@ -1,39 +1,34 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
-	kotlin("jvm")
+	`kotlin-dsl`
 	`java-gradle-plugin`
 	`maven-publish`
 	id("com.gradle.plugin-publish") version "0.10.0"
 }
 
 dependencies {
-	implementation(kotlin("stdlib-jdk8"))
 	compileOnly(kotlin("gradle-plugin"))
 	compileOnly(kotlin("compiler-embeddable"))
 }
 
-JavaVersion.VERSION_1_8.also {
-	configure<JavaPluginConvention> { sourceCompatibility = it }
-	tasks.withType<KotlinCompile> { kotlinOptions.jvmTarget = it.toString() }
-}
-
 gradlePlugin {
-	(plugins) {
-		"KtLoggingJs" {
-			id = "ru.capjack.kt-logging-js"
-			implementationClass = "ru.capjack.kt.logging.js.gradle.LoggingPlugin"
-		}
+	plugins.create("KtLoggingJs") {
+		id = "ru.capjack.lib.kt-logging-js"
+		implementationClass = "ru.capjack.lib.kt.logging.js.gradle.LoggingPlugin"
+		displayName = "Lib KtLoggingJs"
 	}
 }
 
 pluginBundle {
-	vcsUrl = "https://github.com/CaptainJack/kt-logging"
+	vcsUrl = "https://github.com/CaptainJack/lib-kt-logging"
 	website = vcsUrl
 	description = "Kotlin compiler plugin for support kt-logging-js library"
 	tags = listOf("kotlin", "javascript", "logging")
-	
-	plugins["KtLoggingJs"].displayName = "KtLoggingJs plugin"
+}
+
+kotlinDslPluginOptions {
+	experimentalWarning.set(false)
 }
 
 rootProject.tasks["postRelease"].dependsOn(tasks["publishPlugins"])

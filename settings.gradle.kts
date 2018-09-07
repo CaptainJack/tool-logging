@@ -4,5 +4,3 @@ include(
 	"kt-logging-js-gradle",
 	"kt-logging-jvm"
 )
-
-enableFeaturePreview("STABLE_PUBLISHING")
