@@ -27,10 +27,6 @@ pluginBundle {
 	tags = listOf("kotlin", "javascript", "logging")
 }
 
-kotlinDslPluginOptions {
-	experimentalWarning.set(false)
-}
-
 rootProject.tasks["postRelease"].dependsOn(tasks["publishPlugins"])
 
 tasks.withType<ProcessResources> {
