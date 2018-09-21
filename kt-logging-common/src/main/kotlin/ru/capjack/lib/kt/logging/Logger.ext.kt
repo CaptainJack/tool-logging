@@ -10,36 +10,36 @@ inline fun Logger.error(t: Throwable, message: () -> String) {
 
 
 inline fun Logger.warn(message: () -> String) {
-	if (errorEnabled) error(message())
+	if (errorEnabled) warn(message())
 }
 
 inline fun Logger.warn(t: Throwable, message: () -> String) {
-	if (errorEnabled) error(message(), t)
+	if (errorEnabled) warn(message(), t)
 }
 
 
 inline fun Logger.info(message: () -> String) {
-	if (errorEnabled) error(message())
+	if (errorEnabled) info(message())
 }
 
 inline fun Logger.info(t: Throwable, message: () -> String) {
-	if (errorEnabled) error(message(), t)
+	if (errorEnabled) info(message(), t)
 }
 
 
 inline fun Logger.debug(message: () -> String) {
-	if (errorEnabled) error(message())
+	if (errorEnabled) debug(message())
 }
 
 inline fun Logger.debug(t: Throwable, message: () -> String) {
-	if (errorEnabled) error(message(), t)
+	if (errorEnabled) debug(message(), t)
 }
 
 
 inline fun Logger.trace(message: () -> String) {
-	if (errorEnabled) error(message())
+	if (errorEnabled) trace(message())
 }
 
 inline fun Logger.trace(t: Throwable, message: () -> String) {
-	if (errorEnabled) error(message(), t)
+	if (errorEnabled) trace(message(), t)
 }
