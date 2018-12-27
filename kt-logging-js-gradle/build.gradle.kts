@@ -5,8 +5,6 @@ plugins {
 	`java-gradle-plugin`
 	`maven-publish`
 	id("com.gradle.plugin-publish") version "0.10.0"
-	id("io.freefair.sources-jar")
-	id("ru.capjack.capjack-bintray")
 }
 
 dependencies {
@@ -35,4 +33,3 @@ tasks.withType<ProcessResources> {
 	inputs.property("version", version.toString())
 	expand(project.properties)
 }
-

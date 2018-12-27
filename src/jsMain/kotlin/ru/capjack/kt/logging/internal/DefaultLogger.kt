@@ -69,6 +69,10 @@ internal class DefaultLogger(
 		log(TRACE, message, t)
 	}
 	
+	override fun toString(): String {
+		return "Logger $name"
+	}
+	
 	private fun log(level: Level, message: String, t: Throwable? = null) {
 		if (isEnabled(level)) {
 			output.writeRecord(Record(window.performance.now(), name, level, message, t))

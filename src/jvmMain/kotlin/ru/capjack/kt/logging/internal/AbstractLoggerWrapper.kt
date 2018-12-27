@@ -33,4 +33,8 @@ abstract class AbstractLoggerWrapper<L : Slf4jLogger>(protected val logger: L) :
 	override fun hashCode(): Int {
 		return logger.hashCode()
 	}
+	
+	override fun toString(): String {
+		return "Logger ${logger.name}"
+	}
 }

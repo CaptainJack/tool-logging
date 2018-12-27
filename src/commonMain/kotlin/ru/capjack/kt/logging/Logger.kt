@@ -21,4 +21,6 @@ interface Logger {
 	
 	fun trace(message: String)
 	fun trace(message: String, t: Throwable)
+	
+	override fun toString(): String
 }
