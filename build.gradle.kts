@@ -1,20 +1,25 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
+import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 plugins {
-	kotlin("multiplatform") version "1.3.11"
+	kotlin("multiplatform") version "1.3.10"
 	id("ru.capjack.ktjs-test") version "0.8.0"
 	id("nebula.release") version "9.1.2"
-	id("ru.capjack.capjack-bintray") version "0.12.0"
+	id("ru.capjack.capjack-bintray") version "0.13.0-SNAPSHOT"
 }
 
 allprojects {
+	group = "ru.capjack.kt.logging"
 	repositories {
 		jcenter()
 	}
 }
 
-evaluationDependsOn(":kt-logging-js-gradle")
+afterEvaluate {
+	// Fix bug in kotlin multiplatform plugin
+	publishing.publications.forEach { (it as MavenPublication).groupId = group.toString() }
+}
 
 kotlin {
 	targets {
@@ -32,6 +37,7 @@ kotlin {
 					moduleKind = "umd"
 				}
 				tasks.getByName<KotlinJsCompile>("compileTestKotlinJs") {
+					evaluationDependsOn(":kt-logging-js-gradle")
 					val pluginJar = project(":kt-logging-js-gradle").tasks.getByName<Jar>("jar")
 					dependsOn(pluginJar)
 					kotlinOptions.freeCompilerArgs += listOf("-Xplugin=${pluginJar.archivePath.absolutePath}")
