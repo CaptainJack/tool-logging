@@ -3,7 +3,7 @@ import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
 
 plugins {
-	kotlin("multiplatform") version "1.3.10"
+	kotlin("multiplatform") version "1.3.11"
 	id("ru.capjack.ktjs-test") version "0.8.0"
 	id("nebula.release") version "9.1.2"
 	id("ru.capjack.capjack-bintray") version "0.13.0"
