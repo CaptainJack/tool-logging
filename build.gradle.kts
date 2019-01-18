@@ -1,6 +1,7 @@
 import org.jetbrains.kotlin.gradle.dsl.KotlinJsCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinJvmCompile
 import org.jetbrains.kotlin.gradle.dsl.KotlinMultiplatformExtension
+import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation
 
 plugins {
 	kotlin("multiplatform") version "1.3.11"
@@ -36,11 +37,15 @@ kotlin {
 					sourceMapEmbedSources = "always"
 					moduleKind = "umd"
 				}
-				tasks.getByName<KotlinJsCompile>("compileTestKotlinJs") {
-					evaluationDependsOn(":kt-logging-js-gradle")
-					val pluginJar = project(":kt-logging-js-gradle").tasks.getByName<Jar>("jar")
-					dependsOn(pluginJar)
-					kotlinOptions.freeCompilerArgs += listOf("-Xplugin=${pluginJar.archivePath.absolutePath}")
+			}
+			
+			compilations.getByName(KotlinCompilation.TEST_COMPILATION_NAME) {
+				tasks.getByName<KotlinJsCompile>(compileKotlinTaskName) {
+					val plugin = ":kt-logging-js-gradle"
+					evaluationDependsOn(plugin)
+					val jar = project(plugin).tasks.getByName<Jar>("jar")
+					dependsOn(jar)
+					kotlinOptions.freeCompilerArgs += listOf("-Xplugin=${jar.archivePath.absolutePath}")
 				}
 			}
 		})
