@@ -7,7 +7,7 @@ plugins {
 	kotlin("multiplatform") version "1.3.11"
 	id("ru.capjack.ktjs-test") version "0.8.0"
 	id("nebula.release") version "9.2.0"
-	id("ru.capjack.capjack-bintray") version "0.13.0"
+	id("ru.capjack.capjack-bintray") version "0.14.1"
 }
 
 allprojects {
@@ -17,8 +17,12 @@ allprojects {
 	}
 }
 
+capjackBintray {
+	publications("*", "kt-logging-js-gradle")
+}
+
 afterEvaluate {
-	// Fix bug in kotlin multiplatform plugin
+	// https://youtrack.jetbrains.com/issue/KT-29058
 	publishing.publications.forEach { (it as MavenPublication).groupId = group.toString() }
 }
 
@@ -45,7 +49,9 @@ kotlin {
 					evaluationDependsOn(plugin)
 					val jar = project(plugin).tasks.getByName<Jar>("jar")
 					dependsOn(jar)
-					kotlinOptions.freeCompilerArgs += listOf("-Xplugin=${jar.archivePath.absolutePath}")
+					kotlinOptions.freeCompilerArgs += listOf(
+						"-Xplugin=${jar.archiveFile.get().asFile.absolutePath}"
+					)
 				}
 			}
 		})
