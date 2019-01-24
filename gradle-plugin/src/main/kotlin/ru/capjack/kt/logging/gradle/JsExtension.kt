@@ -1,4 +1,4 @@
-package ru.capjack.kt.logging.js.gradle
+package ru.capjack.kt.logging.gradle
 
 import org.jetbrains.kotlin.descriptors.ClassDescriptor
 import org.jetbrains.kotlin.js.backend.ast.JsNameRef
@@ -19,7 +19,7 @@ import org.jetbrains.kotlin.resolve.calls.callUtil.getCall
 import org.jetbrains.kotlin.resolve.descriptorUtil.fqNameSafe
 import org.jetbrains.kotlin.types.KotlinType
 
-class JsSyntheticTranslateExtension() : JsSyntheticTranslateExtension {
+class JsExtension : JsSyntheticTranslateExtension {
 	
 	private var fqNameLogger = FqName("ru.capjack.kt.logging.Logger")
 	private var fqNameLogging = FqName("ru.capjack.kt.logging.Logging")

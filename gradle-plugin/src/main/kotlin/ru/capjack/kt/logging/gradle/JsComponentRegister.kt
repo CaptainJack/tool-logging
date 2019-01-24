@@ -1,12 +1,12 @@
-package ru.capjack.kt.logging.js.gradle
+package ru.capjack.kt.logging.gradle
 
 import org.jetbrains.kotlin.com.intellij.mock.MockProject
 import org.jetbrains.kotlin.compiler.plugin.ComponentRegistrar
 import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.js.translate.extensions.JsSyntheticTranslateExtension
 
-class ComponentRegister : ComponentRegistrar {
+class JsComponentRegister : ComponentRegistrar {
 	override fun registerProjectComponents(project: MockProject, configuration: CompilerConfiguration) {
-		JsSyntheticTranslateExtension.registerExtension(project, JsSyntheticTranslateExtension())
+		JsSyntheticTranslateExtension.registerExtension(project, JsExtension())
 	}
 }

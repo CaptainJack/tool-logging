@@ -1,5 +1,3 @@
-import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-
 plugins {
 	`kotlin-dsl`
 	`java-gradle-plugin`
@@ -13,18 +11,18 @@ dependencies {
 }
 
 gradlePlugin {
-	plugins.create("KtLoggingJs") {
-		id = "ru.capjack.kt-logging-js"
-		implementationClass = "ru.capjack.kt.logging.js.gradle.LoggingPlugin"
-		displayName = "Lib KtLoggingJs"
+	plugins.create("KtLogging") {
+		id = "ru.capjack.kt-logging"
+		implementationClass = "ru.capjack.kt.logging.gradle.LoggingPlugin"
+		displayName = "kt-logging"
 	}
 }
 
 pluginBundle {
 	vcsUrl = "https://github.com/CaptainJack/kt-logging"
 	website = vcsUrl
-	description = "Kotlin compiler plugin for support kt-logging-js library"
-	tags = listOf("kotlin", "javascript", "logging")
+	description = "Plugin for support kt-logging library"
+	tags = listOf("capjack", "kotlin", "logging")
 }
 
 rootProject.tasks["postRelease"].dependsOn(tasks["publishPlugins"])

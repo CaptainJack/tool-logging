@@ -1,4 +1,4 @@
-package ru.capjack.kt.logging.js.gradle
+package ru.capjack.kt.logging.gradle
 
 import org.gradle.api.Action
 import org.gradle.api.Plugin
@@ -6,9 +6,10 @@ import org.gradle.api.Project
 
 open class LoggingPlugin : Plugin<Project> {
 	companion object {
-		val VERSION = this::class.java.classLoader.getResource("kt-logging-version").readText()
+		const val ARTIFACT_GROUP = "ru.capjack.kt.logging"
+		const val ARTIFACT_NAME = "kt-logging-gradle"
 		
-		fun isEnabled(project: Project) = project.plugins.hasPlugin(LoggingPlugin::class.java)
+		val VERSION = this::class.java.classLoader.getResource("kt-logging-version").readText()
 	}
 	
 	override fun apply(project: Project) {
@@ -18,7 +19,7 @@ open class LoggingPlugin : Plugin<Project> {
 	private fun configureDefaultVersionsResolutionStrategy(project: Project) {
 		project.configurations.forEach { configuration ->
 			configuration.resolutionStrategy.eachDependency(Action {
-				if (requested.group == Const.GROUP && requested.version.isNullOrEmpty()) {
+				if (requested.group == ARTIFACT_GROUP && requested.version.isNullOrEmpty()) {
 					useVersion(VERSION)
 				}
 			})
