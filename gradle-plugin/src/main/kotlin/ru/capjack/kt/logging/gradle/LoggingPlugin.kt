@@ -17,8 +17,8 @@ open class LoggingPlugin : Plugin<Project> {
 	}
 	
 	private fun configureDefaultVersionsResolutionStrategy(project: Project) {
-		project.configurations.forEach { configuration ->
-			configuration.resolutionStrategy.eachDependency(Action {
+		project.configurations.all {
+			resolutionStrategy.eachDependency(Action {
 				if (requested.group == ARTIFACT_GROUP && requested.name.startsWith("kt-logging-") && requested.version.isNullOrEmpty()) {
 					useVersion(VERSION)
 				}
