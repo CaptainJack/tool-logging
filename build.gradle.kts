@@ -4,8 +4,8 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation.Companion.TEST_COMPI
 
 plugins {
 	kotlin("multiplatform") version "1.3.20"
-	id("ru.capjack.ktjs-test") version "0.10.0"
 	id("nebula.release") version "9.2.0"
+	id("ru.capjack.ktjs-test") version "0.10.0"
 	id("ru.capjack.capjack-bintray") version "0.16.1"
 }
 
@@ -13,7 +13,6 @@ allprojects {
 	group = "ru.capjack.tool"
 	repositories {
 		jcenter()
-		maven("https://dl.bintray.com/capjack/public")
 	}
 }
 
@@ -64,7 +63,7 @@ kotlin {
 		get(MAIN_COMPILATION_NAME).defaultSourceSet {
 			dependencies {
 				implementation(kotlin("stdlib-js"))
-				implementation("ru.capjack.tool:ktjs-lang:0.1.1")
+				implementation("ru.capjack.tool:ktjs-lang:0.2.1")
 			}
 		}
 		
