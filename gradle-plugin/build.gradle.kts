@@ -11,7 +11,7 @@ dependencies {
 }
 
 gradlePlugin {
-	plugins.create("KtLogging") {
+	plugins.create("Logging") {
 		id = "ru.capjack.logging"
 		implementationClass = "ru.capjack.tool.logging.gradle.LoggingPlugin"
 		displayName = "ru.capjack.logging"
