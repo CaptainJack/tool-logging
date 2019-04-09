@@ -64,7 +64,7 @@ kotlin {
 		get(MAIN_COMPILATION_NAME).defaultSourceSet {
 			dependencies {
 				implementation(kotlin("stdlib-js"))
-				implementation("ru.capjack.tool:tool-lang-js:0.2.0-dev.2+396902a")
+				implementation("ru.capjack.tool:tool-lang-js:0.2.0")
 			}
 		}
 		
