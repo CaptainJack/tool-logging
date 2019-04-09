@@ -2,7 +2,7 @@ plugins {
 	`kotlin-dsl`
 	`java-gradle-plugin`
 	`maven-publish`
-	id("com.gradle.plugin-publish") version "0.10.0"
+	id("com.gradle.plugin-publish") version "0.10.1"
 }
 
 dependencies {
@@ -12,16 +12,16 @@ dependencies {
 
 gradlePlugin {
 	plugins.create("KtLogging") {
-		id = "ru.capjack.kt-logging"
-		implementationClass = "ru.capjack.tool.kt.logging.gradle.LoggingPlugin"
-		displayName = "kt-logging"
+		id = "ru.capjack.logging"
+		implementationClass = "ru.capjack.tool.logging.gradle.LoggingPlugin"
+		displayName = "ru.capjack.logging"
 	}
 }
 
 pluginBundle {
-	vcsUrl = "https://github.com/CaptainJack/kt-logging"
+	vcsUrl = "https://github.com/CaptainJack/tool-logging"
 	website = vcsUrl
-	description = "Plugin for support kt-logging library"
+	description = "Plugin for support tool-logging library"
 	tags = listOf("capjack", "kotlin", "logging")
 }
 

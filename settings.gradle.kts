@@ -1,4 +1,4 @@
-rootProject.name = "kt-logging"
+rootProject.name = "tool-logging"
 
-include("kt-logging-gradle")
-project(":kt-logging-gradle").projectDir = file("gradle-plugin")
+include("tool-logging-gradle")
+project(":tool-logging-gradle").projectDir = file("gradle-plugin")

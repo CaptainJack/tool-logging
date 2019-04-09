@@ -3,21 +3,22 @@ import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation.Companion.MAIN_COMPI
 import org.jetbrains.kotlin.gradle.plugin.KotlinCompilation.Companion.TEST_COMPILATION_NAME
 
 plugins {
-	kotlin("multiplatform") version "1.3.20"
-	id("nebula.release") version "9.2.0"
-	id("ru.capjack.ktjs-test") version "0.10.0"
-	id("ru.capjack.capjack-bintray") version "0.16.1"
+	kotlin("multiplatform") version "1.3.21"
+	id("nebula.release") version "10.0.1"
+	id("ru.capjack.bintray") version "0.17.0"
+	id("ru.capjack.kojste") version "0.11.0"
 }
 
 allprojects {
 	group = "ru.capjack.tool"
 	repositories {
 		jcenter()
+		maven("https://dl.bintray.com/capjack/public")
 	}
 }
 
 capjackBintray {
-	publications(":", ":kt-logging-gradle")
+	publications(":", ":tool-logging-gradle")
 }
 
 kotlin {
@@ -63,7 +64,7 @@ kotlin {
 		get(MAIN_COMPILATION_NAME).defaultSourceSet {
 			dependencies {
 				implementation(kotlin("stdlib-js"))
-				implementation("ru.capjack.tool:ktjs-lang:0.2.1")
+				implementation("ru.capjack.tool:tool-lang-js:0.2.0-dev.2+396902a")
 			}
 		}
 		
@@ -74,7 +75,7 @@ kotlin {
 		}
 		
 		get(TEST_COMPILATION_NAME).compileKotlinTask.apply {
-			val plugin = ":kt-logging-gradle"
+			val plugin = ":tool-logging-gradle"
 			evaluationDependsOn(plugin)
 			val jar = project(plugin).tasks.getByName<Jar>("jar")
 			dependsOn(jar)
