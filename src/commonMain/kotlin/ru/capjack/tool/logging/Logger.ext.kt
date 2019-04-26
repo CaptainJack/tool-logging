@@ -43,3 +43,7 @@ inline fun Logger.trace(message: () -> String) {
 inline fun Logger.trace(t: Throwable, message: () -> String) {
 	if (errorEnabled) trace(message(), t)
 }
+
+fun Logger.prefixed(prefix: String): Logger {
+	return PrefixedLogger(this, prefix)
+}
