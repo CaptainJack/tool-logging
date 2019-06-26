@@ -58,4 +58,5 @@ kotlin {
 			)
 		}
 	}
+	js().browser()
 }
