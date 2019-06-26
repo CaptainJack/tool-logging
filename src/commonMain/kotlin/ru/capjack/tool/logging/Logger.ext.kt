@@ -10,40 +10,48 @@ inline fun Logger.error(t: Throwable, message: () -> String) {
 
 
 inline fun Logger.warn(message: () -> String) {
-	if (errorEnabled) warn(message())
+	if (warnEnabled) warn(message())
 }
 
 inline fun Logger.warn(t: Throwable, message: () -> String) {
-	if (errorEnabled) warn(message(), t)
+	if (warnEnabled) warn(message(), t)
 }
 
 
 inline fun Logger.info(message: () -> String) {
-	if (errorEnabled) info(message())
+	if (infoEnabled) info(message())
 }
 
 inline fun Logger.info(t: Throwable, message: () -> String) {
-	if (errorEnabled) info(message(), t)
+	if (infoEnabled) info(message(), t)
 }
 
 
 inline fun Logger.debug(message: () -> String) {
-	if (errorEnabled) debug(message())
+	if (debugEnabled) debug(message())
 }
 
 inline fun Logger.debug(t: Throwable, message: () -> String) {
-	if (errorEnabled) debug(message(), t)
+	if (debugEnabled) debug(message(), t)
 }
 
 
 inline fun Logger.trace(message: () -> String) {
-	if (errorEnabled) trace(message())
+	if (traceEnabled) trace(message())
 }
 
 inline fun Logger.trace(t: Throwable, message: () -> String) {
-	if (errorEnabled) trace(message(), t)
+	if (traceEnabled) trace(message(), t)
 }
 
-fun Logger.prefixed(prefix: String): Logger {
-	return PrefixedLogger(this, prefix)
+inline fun Logger.wrap(crossinline transformer: (String) -> String): Logger {
+	return object : MessageTransformerLogger(this) {
+		override fun transform(message: String) = transformer(message)
+	}
+}
+
+fun Logger.wrap(prefix: String): Logger {
+	return object : MessageTransformerLogger(this) {
+		override fun transform(message: String) = prefix + message
+	}
 }

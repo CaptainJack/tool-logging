@@ -1,55 +1,57 @@
 package ru.capjack.tool.logging
 
-class PrefixedLogger(private val target: Logger, private val prefix: String) : Logger by target {
+abstract class MessageTransformerLogger(private val target: Logger) : Logger by target {
 	override fun error(message: String) {
-		target.error(prefix(message))
+		log(Level.ERROR, message)
 	}
 	
 	override fun error(message: String, error: Throwable) {
-		target.error(prefix(message), error)
+		log(Level.ERROR, message, error)
 	}
 	
 	override fun warn(message: String) {
-		target.warn(prefix(message))
+		log(Level.WARN, message)
 	}
 	
 	override fun warn(message: String, error: Throwable) {
-		target.warn(prefix(message), error)
+		log(Level.WARN, message, error)
 	}
 	
 	override fun info(message: String) {
-		target.info(prefix(message))
+		log(Level.INFO, message)
 	}
 	
 	override fun info(message: String, error: Throwable) {
-		target.info(prefix(message), error)
+		log(Level.INFO, message, error)
 	}
 	
 	override fun debug(message: String) {
-		target.debug(prefix(message))
+		log(Level.DEBUG, message)
 	}
 	
 	override fun debug(message: String, error: Throwable) {
-		target.debug(prefix(message), error)
+		log(Level.DEBUG, message, error)
 	}
 	
 	override fun trace(message: String) {
-		target.trace(prefix(message))
+		log(Level.TRACE, message)
 	}
 	
 	override fun trace(message: String, error: Throwable) {
-		target.trace(prefix(message), error)
+		log(Level.TRACE, message, error)
 	}
 	
 	override fun log(level: Level, message: String) {
-		target.log(level, prefix(message))
+		if (isEnabled(level)) {
+			target.log(level, transform(message))
+		}
 	}
 	
 	override fun log(level: Level, message: String, error: Throwable) {
-		target.log(level, prefix(message), error)
+		if (isEnabled(level)) {
+			target.log(level, transform(message), error)
+		}
 	}
 	
-	private fun prefix(message: String): String {
-		return prefix + message
-	}
+	protected abstract fun transform(message: String): String
 }

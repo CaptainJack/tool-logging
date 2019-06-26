@@ -22,6 +22,16 @@ abstract class AbstractLoggerWrapper<L : Slf4jLogger>(protected val logger: L) :
 	override val traceEnabled: Boolean
 		get() = logger.isTraceEnabled
 	
+	override fun isEnabled(level: Level): Boolean {
+		return when (level) {
+			Level.ERROR -> errorEnabled
+			Level.WARN  -> warnEnabled
+			Level.INFO  -> infoEnabled
+			Level.DEBUG -> debugEnabled
+			Level.TRACE -> traceEnabled
+		}
+	}
+	
 	override fun equals(other: Any?): Boolean {
 		if (this === other) return true
 		if (javaClass != other?.javaClass) return false

@@ -9,6 +9,8 @@ interface Logger {
 	val debugEnabled: Boolean
 	val traceEnabled: Boolean
 	
+	fun isEnabled(level: Level): Boolean
+	
 	fun error(message: String)
 	fun error(message: String, error: Throwable)
 	

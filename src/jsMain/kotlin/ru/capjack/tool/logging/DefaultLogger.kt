@@ -25,6 +25,10 @@ class DefaultLogger(
 	override val traceEnabled: Boolean
 		get() = isEnabled(TRACE)
 	
+	override fun isEnabled(level: Level): Boolean {
+		return this.level.ordinal >= level.ordinal
+	}
+	
 	override fun error(message: String) {
 		log(ERROR, message)
 	}
@@ -77,9 +81,5 @@ class DefaultLogger(
 		if (isEnabled(level)) {
 			output.writeRecord(Record(Date.now(), name, level, message, error))
 		}
-	}
-	
-	private fun isEnabled(level: Level): Boolean {
-		return this.level.ordinal >= level.ordinal
 	}
 }
