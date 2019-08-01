@@ -1,7 +1,7 @@
 plugins {
-	kotlin("multiplatform") version "1.3.40"
+	kotlin("multiplatform") version "1.3.41"
 	id("nebula.release") version "10.1.2"
-	id("ru.capjack.bintray") version "0.18.1"
+	id("ru.capjack.bintray") version "0.19.0"
 }
 
 allprojects {
@@ -12,51 +12,47 @@ allprojects {
 	}
 }
 
-capjackBintray {
-	publications(":", ":tool-logging-gradle")
-}
 
 kotlin {
+	jvm {
+		compilations.all { kotlinOptions.jvmTarget = "1.8" }
+	}
+	js {
+		browser()
+		compilations.all { kotlinOptions.sourceMap = false }
+		
+		compilations["test"].compileKotlinTask.apply {
+			evaluationDependsOn(":tool-logging-gradle")
+			val jar = project(":tool-logging-gradle").tasks.getByName<Jar>("jar")
+			dependsOn(jar)
+			kotlinOptions.freeCompilerArgs += "-Xplugin=${jar.archiveFile.get().asFile.absolutePath}"
+		}
+	}
+	
 	sourceSets {
-		commonMain.get().dependencies {
+		get("commonMain").dependencies {
 			implementation(kotlin("stdlib-common"))
 		}
-		commonTest.get().dependencies {
+		get("commonTest").dependencies {
 			implementation(kotlin("test-common"))
 			implementation(kotlin("test-annotations-common"))
 		}
-	}
-	
-	jvm().compilations {
-		get("main").defaultSourceSet.dependencies {
+		
+		get("jvmMain").dependencies {
 			implementation(kotlin("stdlib-jdk8"))
-			api("org.slf4j:slf4j-api:1.7.+")
-			
+			implementation("org.slf4j:slf4j-api:1.7.26")
 		}
-		get("test").defaultSourceSet.dependencies {
+		get("jvmTest").dependencies {
 			implementation(kotlin("test-junit"))
 			implementation("ch.qos.logback:logback-classic:1.2.3")
 		}
-	}
-	
-	js().compilations {
-		get("main").defaultSourceSet.dependencies {
+		
+		get("jsMain").dependencies {
 			implementation(kotlin("stdlib-js"))
-			implementation("ru.capjack.tool:tool-lang:0.4.2")
+			implementation("ru.capjack.tool:tool-lang:0.6.1")
 		}
-		get("test").defaultSourceSet.dependencies {
+		get("jsTest").dependencies {
 			implementation(kotlin("test-js"))
 		}
-		
-		get("test").compileKotlinTask.apply {
-			val plugin = ":tool-logging-gradle"
-			evaluationDependsOn(plugin)
-			val jar = project(plugin).tasks.getByName<Jar>("jar")
-			dependsOn(jar)
-			kotlinOptions.freeCompilerArgs += listOf(
-				"-Xplugin=${jar.archiveFile.get().asFile.absolutePath}"
-			)
-		}
 	}
-	js().browser()
 }

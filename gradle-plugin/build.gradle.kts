@@ -3,6 +3,7 @@ plugins {
 	`java-gradle-plugin`
 	`maven-publish`
 	id("com.gradle.plugin-publish") version "0.10.1"
+	id("ru.capjack.bintray")
 }
 
 dependencies {
