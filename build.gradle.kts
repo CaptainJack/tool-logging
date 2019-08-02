@@ -19,7 +19,10 @@ kotlin {
 	}
 	js {
 		browser()
-		compilations.all { kotlinOptions.sourceMap = false }
+		compilations["main"].kotlinOptions {
+			sourceMap = true
+			sourceMapEmbedSources = "always"
+		}
 		
 		compilations["test"].compileKotlinTask.apply {
 			evaluationDependsOn(":tool-logging-gradle")
