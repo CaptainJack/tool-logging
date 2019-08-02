@@ -3,7 +3,7 @@ package ru.capjack.tool.logging
 import ru.capjack.tool.lang.stackTrace
 
 class ConsoleOutputFormatter(
-	classNameLengthLimit: Int = 54
+	classNameLengthLimit: Int = 36
 ) : RecordFormatter {
 	private val levelLength = Level.values().map { it.name.length }.max()!!
 	private val loggerAbbreviator: ClassNameAbbreviator = ClassNameAbbreviator(classNameLengthLimit)
