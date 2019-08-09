@@ -6,9 +6,15 @@ plugins {
 	id("ru.capjack.bintray")
 }
 
+repositories {
+	gradlePluginPortal()
+}
+
 dependencies {
 	compileOnly(kotlin("gradle-plugin"))
 	compileOnly(kotlin("compiler-embeddable"))
+	
+	implementation("ru.capjack.gradle:gradle-depver:0.1.0")
 }
 
 gradlePlugin {
