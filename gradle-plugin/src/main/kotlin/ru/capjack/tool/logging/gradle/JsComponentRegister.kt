@@ -6,7 +6,6 @@ import org.jetbrains.kotlin.config.CompilerConfiguration
 import org.jetbrains.kotlin.js.translate.extensions.JsSyntheticTranslateExtension
 
 class JsComponentRegister : ComponentRegistrar {
-	
 	override fun registerProjectComponents(project: MockProject, configuration: CompilerConfiguration) {
 		JsSyntheticTranslateExtension.registerExtension(project, JsExtension())
 	}
