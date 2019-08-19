@@ -14,7 +14,7 @@ dependencies {
 	compileOnly(kotlin("stdlib-jdk8"))
 	compileOnly(kotlin("gradle-plugin"))
 	compileOnly(kotlin("compiler-embeddable"))
-	compileOnly("ru.capjack.gradle:gradle-depver:0.1.0")
+	compileOnly("ru.capjack.gradle:gradle-depver:0.2.0")
 }
 
 gradlePlugin {
