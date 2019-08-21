@@ -4,43 +4,48 @@ class ClassNameAbbreviator(
 	private val lengthLimit: Int,
 	private val dotsLimit: Int = 16
 ) {
+	private val cache = js("{}")
 	
-	fun abbreviate(fqClassName: String): String {
-		val buf = StringBuilder(lengthLimit)
-		
-		val inLen = fqClassName.length
-		if (inLen < lengthLimit) {
-			return fqClassName
+	fun abbreviate(name: String): String {
+		if (name.length < lengthLimit) {
+			return name
 		}
 		
-		val dotIndexesArray = IntArray(dotsLimit)
-		val lengthArray = IntArray(dotsLimit + 1)
-		val dotCount = computeDotIndexes(fqClassName, dotIndexesArray)
+		val cached = cache[name].unsafeCast<String?>()
+		if (cached != null) {
+			return cached
+		}
+		
+		val dots = IntArray(dotsLimit)
+		val dotCount = computeDots(name, dots)
 		
 		if (dotCount == 0) {
-			return fqClassName
+			return name
 		}
 		
-		computeLengthArray(fqClassName, dotIndexesArray, lengthArray, dotCount)
+		val lengths = IntArray(dotsLimit + 1)
+		computeLengths(name, dots, lengths, dotCount)
 		
-		buf.append(fqClassName.take(lengthArray[0] - 1))
+		val builder = StringBuilder(lengthLimit).append(name.take(lengths[0] - 1))
 		
 		for (i in 1..dotCount) {
-			buf.append(fqClassName.substring(dotIndexesArray[i - 1], dotIndexesArray[i - 1] + lengthArray[i]))
+			builder.append(name.substring(dots[i - 1], dots[i - 1] + lengths[i]))
 		}
 		
-		return buf.toString()
+		val result = builder.toString()
+		cache[name] = result
+		
+		return result
 	}
 	
-	private fun computeLengthArray(className: String, dotArray: IntArray, lengthArray: IntArray, dotCount: Int) {
-		var toTrim = className.length - lengthLimit
+	private fun computeLengths(name: String, dots: IntArray, lengths: IntArray, dotCount: Int) {
+		var toTrim = name.length - lengthLimit
+		
+		var previousDot = -1
 		
 		for (i in 0 until dotCount) {
-			var previousDotPosition = -1
-			if (i > 0) {
-				previousDotPosition = dotArray[i - 1]
-			}
-			val available = dotArray[i] - previousDotPosition - 1
+			val available = dots[i] - previousDot - 1
+			previousDot = dots[i]
 			
 			val len = if (toTrim > 0) {
 				if (available < 1) available else 1
@@ -48,21 +53,19 @@ class ClassNameAbbreviator(
 			else available
 			
 			toTrim -= available - len
-			lengthArray[i] = len + 1
+			lengths[i] = len + 1
 		}
 		
-		lengthArray[dotCount] = className.length - dotArray[dotCount - 1]
+		lengths[dotCount] = name.length - dots[dotCount - 1]
 	}
 	
-	private fun computeDotIndexes(className: String, dotArray: IntArray): Int {
+	private fun computeDots(name: String, dots: IntArray): Int {
 		var dotCount = 0
 		var k = 0
 		while (true) {
-			k = className.indexOf('.', k)
+			k = name.indexOf('.', k)
 			if (k != -1 && dotCount < dotsLimit) {
-				dotArray[dotCount] = k
-				dotCount++
-				k++
+				dots[dotCount++] = k++
 			}
 			else {
 				break
