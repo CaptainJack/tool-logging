@@ -55,3 +55,9 @@ fun Logger.wrap(prefix: String): Logger {
 		override fun transform(message: String) = prefix + message
 	}
 }
+
+inline fun Logger.wrap(phrase: String, crossinline transformer: (phrase: String, message: String) -> String): Logger {
+	return object : MessageTransformerLogger(this) {
+		override fun transform(message: String) = transformer(phrase, message)
+	}
+}
