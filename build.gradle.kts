@@ -1,6 +1,6 @@
 plugins {
-	kotlin("multiplatform") version "1.3.50"
-	id("nebula.release") version "11.1.0"
+	kotlin("multiplatform") version "1.3.60"
+	id("nebula.release") version "13.1.1"
 	id("ru.capjack.bintray") version "1.0.0"
 }
 
@@ -19,10 +19,7 @@ kotlin {
 	}
 	js {
 		browser()
-		compilations["main"].kotlinOptions {
-			sourceMap = true
-			sourceMapEmbedSources = "always"
-		}
+		compilations["main"].kotlinOptions.sourceMap = false
 		
 		compilations["test"].compileKotlinTask.apply {
 			evaluationDependsOn(":tool-logging-gradle")
