@@ -5,7 +5,7 @@ import ru.capjack.tool.lang.stackTrace
 class ConsoleOutputFormatter(
 	classNameLengthLimit: Int = 36
 ) : RecordFormatter {
-	private val levelLength = Level.values().map { it.name.length }.max()!!
+	private val levelLength = Level.values().map { it.name.length }.maxOrNull()!!
 	private val loggerAbbreviator: ClassNameAbbreviator = ClassNameAbbreviator(classNameLengthLimit)
 	
 	override fun format(record: Record): String {

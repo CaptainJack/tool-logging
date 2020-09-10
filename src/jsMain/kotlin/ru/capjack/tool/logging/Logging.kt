@@ -15,8 +15,8 @@ actual object Logging {
 	}
 	
 	actual fun getLogger(clazz: KClass<out Any>): Logger {
-		val pkg = (clazz.js.asDynamic().`$metadata$`.`package` as String?)?.let { "$it." } ?: ""
-		return getLogger(pkg + (clazz.simpleName ?: clazz.js.name))
+		//TODO Required package name from reflection
+		return getLogger(clazz.simpleName ?: clazz.js.name)
 	}
 	
 	fun setOutput(value: Output) {
