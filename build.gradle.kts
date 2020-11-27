@@ -35,7 +35,7 @@ kotlin {
 		}
 		
 		get("jsMain").dependencies {
-			implementation("ru.capjack.tool:tool-lang:1.6.0")
+			implementation("ru.capjack.tool:tool-lang:1.6.1")
 		}
 		get("jsTest").dependencies {
 			implementation(kotlin("test-js"))
