@@ -1,6 +1,6 @@
 plugins {
-	kotlin("multiplatform") version "1.4.20"
-	id("nebula.release") version "15.3.0"
+	kotlin("multiplatform") version "1.4.30"
+	id("nebula.release") version "15.3.1"
 	id("ru.capjack.bintray") version "1.0.0"
 }
 
@@ -14,7 +14,7 @@ allprojects {
 
 kotlin {
 	jvm {
-		compilations.all { kotlinOptions.jvmTarget = "1.8" }
+		compilations.all { kotlinOptions.jvmTarget = "11" }
 	}
 	js(IR) {
 		browser()
@@ -27,7 +27,7 @@ kotlin {
 		}
 		
 		get("jvmMain").dependencies {
-			implementation("org.slf4j:slf4j-api:1.7.26")
+			implementation("org.slf4j:slf4j-api:1.7.30")
 		}
 		get("jvmTest").dependencies {
 			implementation(kotlin("test-junit"))
@@ -35,7 +35,7 @@ kotlin {
 		}
 		
 		get("jsMain").dependencies {
-			implementation("ru.capjack.tool:tool-lang:1.6.1")
+			implementation("ru.capjack.tool:tool-lang:1.8.0")
 		}
 		get("jsTest").dependencies {
 			implementation(kotlin("test-js"))
