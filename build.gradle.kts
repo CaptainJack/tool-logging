@@ -1,14 +1,21 @@
 plugins {
 	kotlin("multiplatform") version "1.4.32"
+	`maven-publish`
 	id("nebula.release") version "15.3.1"
-	id("ru.capjack.bintray") version "1.0.0"
+	id("ru.capjack.reposit") version "0.3.0"
 }
 
 allprojects {
 	group = "ru.capjack.tool"
 	repositories {
-		jcenter()
-		maven("https://dl.bintray.com/capjack/public")
+		mavenCentral()
+		mavenCapjack()
+	}
+}
+
+publishing {
+	repositories {
+		mavenCapjackPublic(reposit)
 	}
 }
 
@@ -35,7 +42,7 @@ kotlin {
 		}
 		
 		get("jsMain").dependencies {
-			implementation("ru.capjack.tool:tool-lang:1.8.0")
+			implementation("ru.capjack.tool:tool-lang:1.9.0")
 		}
 		get("jsTest").dependencies {
 			implementation(kotlin("test-js"))
