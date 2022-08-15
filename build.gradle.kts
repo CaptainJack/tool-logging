@@ -1,5 +1,5 @@
 plugins {
-	kotlin("multiplatform") version "1.6.21"
+	kotlin("multiplatform") version "1.7.10"
 	id("ru.capjack.publisher") version "1.0.0"
 }
 
@@ -12,7 +12,7 @@ repositories {
 
 kotlin {
 	jvm {
-		compilations.all { kotlinOptions.jvmTarget = "11" }
+		compilations.all { kotlinOptions.jvmTarget = "17" }
 	}
 	js(IR) {
 		browser()
@@ -31,7 +31,7 @@ kotlin {
 		}
 		
 		get("jsMain").dependencies {
-			implementation("ru.capjack.tool:tool-lang:1.12.0")
+			implementation("ru.capjack.tool:tool-lang:1.13.1")
 		}
 	}
 }
